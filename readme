@@ -1,0 +1,36 @@
+Welcome to the README document for this shell!
+
+1. Summary of how to compile and use the shell.
+	This shell is capable of taking its command line input from a file whose name is provided as a command line argument. i.e. if the shell is invoked with a command line argument: ./1c batchfile 
+	This shell contains a set of command lines for the shell to process. When the end-of- file (EOF) is reached, the shell will exit. 
+	When a batch file is provided, the shell should provide no prompt.
+	However, if the shell is invoked without a command line argument it should solicit input from the user via a prompt on the display as before.	
+	This shell has several command prompts that you can read more about in section 2 below.	
+
+
+2. Description of each internal command line feature. 
+	cd <directory> - changes the current default directory to <directory>. If the <directory> argument is not present, the shell reports the current directory. This command should also change the PWD environment string.
+	clr - clear the screen using the system function clear: system("clear")
+	dir - list the current directory contents ( ls -al <directory> ) - some command line parsing capability has been implemented to extract the target directory for listing . Executed by system function.
+	environ - lists all the environment strings - the environment strings can be accessed from within a program by specifying the POSIX compliant environment list: extern char **environ; as a global variable. environ is an array of pointers to the environment strings terminated with a NULL pointer.
+	quit -  quit from the program with a zero return value. Use the standard exit function.
+	echo <comment> - calling this will print the command line on the display (without the word echo). Remember that <comment> can be multiple words. This command always prints to the stdout (even if you try and redirect).
+	pause - calling this will display "Press Enter to continue..." and pause operation of the shell until 'Enter' is pressed (ignore any intervening non-'Enter' input).
+	help - Help prints out the readme document.
+
+
+3. Description of known bugs.
+	If the user enters control c, the shell will handle this interupt imporoperly and exit the program. This bug could be fixed using SIGINT for better interupt handling but for now this bug will remain.
+
+
+4. Answers to polishing questions:
+	1. Check that arguments exist before accessing them.
+		I just tried to access them and if null was returned then I assumed there was no file. It seemed as though the provided code did a good job of handling this either way.
+	2. What happens when Ctrl-C is pressed during 
+		a. command execution? - the project designed shell closed and returned to the encasing shell due to an interupt.
+		b. user entry of commands? -  Each command entered by the user followed the specifications lined out by the provided guide in class for how to do this project.
+		c. would SIGINT trapping control this better? - Yes it would. Outside research on IBM's website and stackoverflow say that it is a good interupt handler and catches the control c interupt. SIGINT would only exit the user from the command and not the entire shell. 
+	3. The code should check the existence/permissions of input redirection files?
+		It does for the most part.
+	4. Check makefile works
+		Whoo! It works! Go team, take state!
